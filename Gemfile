@@ -35,5 +35,3 @@ gem 'ember-handlebars-template', '~> 0.1.5'
 group :doc do
 	gem 'sdoc', require: false
 end
-
-ruby "2.1.3"
