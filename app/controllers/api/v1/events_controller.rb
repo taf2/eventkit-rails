@@ -69,6 +69,7 @@ class Api::V1::EventsController < ApplicationController
       count = events.count
     else
 			# RETRIEVE ALL RECORDS (dah fuk)
+      Rails.logger.info("holy crap why would we ever load the database into memory?")
 			events = []
 			Event.find_each do |record|
 				events << record
