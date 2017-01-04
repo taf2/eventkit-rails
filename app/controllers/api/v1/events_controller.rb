@@ -65,9 +65,9 @@ class Api::V1::EventsController < ApplicationController
 			# LOOK FOR SPECIFIC RECORDS
 			events = Event.where(query).limit(100)
 			count = events.count
-		elsif params[:since] then
+		elsif params[:since].to_i > 0 then
       Rails.logger.info("query since")
-			events = Event.where("timestamp > ?", params[:since].to_i)
+			events = Event.where("timestamp > ?", params[:since].to_i).limit(1000)
       count = events.count
     else
 			# RETRIEVE ALL RECORDS (dah fuk)
