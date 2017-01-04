@@ -59,21 +59,21 @@ class Api::V1::EventsController < ApplicationController
 			end
 
 			count = events.count
-		elsif query.keys.count then
+		elsif query.keys.size then
 			# LOOK FOR SPECIFIC RECORDS
 			events = Event.where(query)
 			count = events.count
-		else
-			# RETRIEVE ALL RECORDS
+		elsif params[:since] then
+      Rails.logger.info("query since")
+			events = Event.where("timestamp > ?", params[:since].to_i)
+      count = events.count
+    else
+			# RETRIEVE ALL RECORDS (dah fuk)
 			events = []
 			Event.find_each do |record|
 				events << record
 			end
-			count = events.count
-		end
-
-		if params[:since] then
-			events = Event.where("timestamp > ?", params[:since].to_i).limit(10)
+			count = events.size
 		end
 
 		descending = false

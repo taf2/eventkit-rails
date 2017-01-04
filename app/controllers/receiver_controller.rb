@@ -89,7 +89,6 @@ class ReceiverController < ApplicationController
 		# Delete Old Records
     autodelete_time = Setting.where(name: 'autodelete_time').first
 		if autodelete_time.present?
-      Rails.logger.info("delete old records")
 			value = autodelete_time.value.to_i
 			if value > 0
 				now = Time.now.to_i
