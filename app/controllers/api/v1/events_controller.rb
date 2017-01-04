@@ -60,7 +60,7 @@ class Api::V1::EventsController < ApplicationController
 			end
 
 			count = events.count
-		elsif query.keys.size then
+		elsif query.keys.size > 0 then
       Rails.logger.info("\n\n\nWhere #{query.inspect}\n\n\n")
 			# LOOK FOR SPECIFIC RECORDS
 			events = Event.where(query).limit(100)
