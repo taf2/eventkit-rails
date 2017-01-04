@@ -12,6 +12,7 @@ class Api::V1::EventsController < ApplicationController
 	#
 	def index
 		query = params.except(:action, :controller, :offset, :limit, :descending, :sortby, :since, :like, :detailed, :format, :token)
+    Rails.logger.info("\n\n\n\n\n##################\n\n\n\nEvents with Query: #{query.inspect}\n\n\n\n\n##################\n\n\n\n")
 
 		if params[:like] then
 			if params[:raw] then
