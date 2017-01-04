@@ -87,13 +87,13 @@ class ReceiverController < ApplicationController
 		end
 
 		# Delete Old Records
-		if Setting.where(name: 'autodelete_time').present?
+    autodelete_time = Setting.where(name: 'autodelete_time').first
+		if autodelete_time.present?
       Rails.logger.info("delete old records")
-			value = Setting.where(name: 'autodelete_time').first.value.to_i
+			value = autodelete_time.value.to_i
 			if value > 0
 				now = Time.now.to_i
 				threshold = now - (value * 30 * 24 * 60 * 60)
-				#Event.where(["timestamp < ?", threshold]).delete_all
         Event.connection.exec_delete("delete from events where timestamp < #{threshold}")
 			end
 		end

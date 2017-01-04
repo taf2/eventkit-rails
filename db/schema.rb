@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014135702) do
+ActiveRecord::Schema.define(version: 20170104215424) do
 
   create_table "events", force: true do |t|
     t.integer  "timestamp",            limit: 8
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 20141014135702) do
     t.integer  "asm_group_id",         limit: 2
   end
 
+  add_index "events", ["timestamp"], name: "index_events_on_timestamp"
+
   create_table "settings", force: true do |t|
     t.string   "name"
     t.text     "value"
@@ -45,6 +47,8 @@ ActiveRecord::Schema.define(version: 20141014135702) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "settings", ["name"], name: "index_settings_on_name"
 
   create_table "users", force: true do |t|
     t.integer  "permissions",   default: 1
@@ -55,5 +59,7 @@ ActiveRecord::Schema.define(version: 20141014135702) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["username"], name: "index_users_on_username"
 
 end
