@@ -73,7 +73,7 @@ class Api::V1::EventsController < ApplicationController
 		end
 
 		if params[:since] then
-			events = Event.where("timestamp > ?", params[:since].to_i)
+			events = Event.where("timestamp > ?", params[:since].to_i).limit(10)
 		end
 
 		descending = false
