@@ -63,12 +63,14 @@ class Api::V1::EventsController < ApplicationController
 		elsif query.keys.size > 0 then
       Rails.logger.info("\n\n\nWhere #{query.inspect}\n\n\n")
 			# LOOK FOR SPECIFIC RECORDS
-			events = Event.where(query).limit(100)
+			events = Event.where(query)
 			count = events.count
+      events = events.limit(100)
 		elsif params[:since].to_i > 0 then
       Rails.logger.info("query since")
-			events = Event.where("timestamp > ?", params[:since].to_i).limit(1000)
+			events = Event.where("timestamp > ?", params[:since].to_i)
       count = events.count
+      events = events.limit(100)
     else
 			# RETRIEVE ALL RECORDS (dah fuk)
       Rails.logger.info("holy crap why would we ever load the database into memory?")
