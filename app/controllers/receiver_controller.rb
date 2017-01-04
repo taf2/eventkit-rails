@@ -93,7 +93,8 @@ class ReceiverController < ApplicationController
 			if value > 0
 				now = Time.now.to_i
 				threshold = now - (value * 30 * 24 * 60 * 60)
-				Event.where(["timestamp < ?", threshold]).limit(100).delete_all
+				#Event.where(["timestamp < ?", threshold]).delete_all
+        Event.connection.exec_delete("delete from events where timestamp < #{threshold}")
 			end
 		end
 	end
