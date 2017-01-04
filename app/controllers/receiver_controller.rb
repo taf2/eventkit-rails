@@ -92,9 +92,7 @@ class ReceiverController < ApplicationController
 			if value > 0
 				now = Time.now.to_i
 				threshold = now - (value * 30 * 24 * 60 * 60)
-				Event.where(["timestamp < ?", threshold]).each do |event|
-					event.destroy
-				end
+				Event.where(["timestamp < ?", threshold]).delete_all
 			end
 		end
 	end
