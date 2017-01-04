@@ -61,8 +61,9 @@ class Api::V1::EventsController < ApplicationController
 
 			count = events.count
 		elsif query.keys.size then
+      Rails.logger.info("\n\n\nWhere #{query.inspect}\n\n\n")
 			# LOOK FOR SPECIFIC RECORDS
-			events = Event.where(query)
+			events = Event.where(query).limit(100)
 			count = events.count
 		elsif params[:since] then
       Rails.logger.info("query since")
