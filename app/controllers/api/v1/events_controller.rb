@@ -12,7 +12,7 @@ class Api::V1::EventsController < ApplicationController
 	#
 	def index
 		query = params.except(:action, :controller, :offset, :limit, :descending, :sortby, :since, :like, :detailed, :format, :token)
-    Rails.logger.info("\n\n\n\n\n##################\n\n\n\nEvents with Query: #{query.inspect}\n\n\n\n\n##################\n\n\n\n")
+    Rails.logger.info("\n\n\n\n\n##################\n\n\n\nEvents with Query: #{query.inspect} with #{params.inspect}\n\n\n\n\n##################\n\n\n\n")
 
 		if params[:like] then
 			if params[:raw] then
@@ -72,7 +72,7 @@ class Api::V1::EventsController < ApplicationController
 			# RETRIEVE ALL RECORDS (dah fuk)
       Rails.logger.info("holy crap why would we ever load the database into memory?")
 			events = []
-			Event.find_each do |record|
+			Event.limit(100).find_each do |record|
 				events << record
 			end
 			count = events.size
