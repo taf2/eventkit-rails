@@ -55,7 +55,13 @@
                 {{else}}
                     <div class="list-group-item">
                         <h3 style="font-size: 18px; margin: 0px;">
-                            No results.
+                            <span id="searching">Searching...</span>
+                            <script>
+                            // should take no more than 30 seconds
+                              setTimeout(function() {
+                                 document.getElementById("searching").innerHTML = "No Results.";
+                              }, 30000);
+                            </script>
                         </h3>
                     </div>
                 {{/if}}
