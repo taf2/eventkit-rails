@@ -18,7 +18,8 @@ class Api::V1::EventsController < ApplicationController
 			if params[:raw] then
 				# WILD CARD SEARCH
 				#events = Event.where(["raw LIKE ?", "%#{query[:raw]}%"])
-        events = Event.where(email:query[:raw])
+        #events = Event.where(email:query[:raw])
+				events = Event.where(["email LIKE ?", "%#{query[:raw]}%"])
 			elsif params[:detailed] then
 				# DETAILED SEARCH
 				details = JSON.parse params[:detailed]
